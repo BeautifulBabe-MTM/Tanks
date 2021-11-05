@@ -12,7 +12,7 @@ namespace Client_Tank
         private SpriteBatch _spriteBatch;
         private Texture2D wall;
         Texture2D tank_texture;
-        Tank tank = new Tank(300, 5, 30);
+        Tank tank = new Tank(100, 3, 25);
         Vector2 position = Vector2.Zero;
 
 
@@ -48,12 +48,8 @@ namespace Client_Tank
                 };
                 WallMap = new Wall[20, 20];
                 for (int i = 0; i < IntMap.GetLength(0); i++)
-                {
                     for (int j = 0; j < IntMap.GetLength(1); j++)
-                    {
                         WallMap[i, j] = new Wall(new Rectangle(j * 50, i * 50, 50, 50), IntMap[i, j] == 'X' ? true : false);
-                    }
-                }
             }
         }
 
