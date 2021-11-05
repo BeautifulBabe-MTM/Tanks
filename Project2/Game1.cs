@@ -70,7 +70,7 @@ namespace Client_Tank
             Client client = new Client("127.0.0.1", 8000);
             client.CreateIPEndPoint();
             client.Connect();
-            client.SengMsg("Conection");
+            client.SengMsg("Connection");
             _graphics.PreferredBackBufferWidth = 1000;
             _graphics.PreferredBackBufferHeight = 1000;
             _graphics.ApplyChanges();
