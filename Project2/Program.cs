@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Project2
+namespace Client_Tank
 {
     public static class Program
     {
