@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 using System.Windows.Forms;
 using MimeKit;
 using System.Threading.Tasks;
+using MailKit.Net.Smtp;
 using System.Security.Cryptography;
-using System.Net.Mail;
 
 namespace RegisterForm
 {
@@ -20,11 +25,8 @@ namespace RegisterForm
         private void button1_Click(object sender, EventArgs e)
         {
             if (textBox1.Text.Length > 5 && textBox1.Text.Length < 12)
-            {
                 if (textBox2.Text.Length > 5 && textBox2.Text.Length < 12)
-                {
                     if (!File.Exists(textBox1.Text + ".json"))
-                    {
                         if (IsValidEmail(textBox3.Text))
                         {
                             user.login = textBox1.Text;
@@ -33,9 +35,6 @@ namespace RegisterForm
                             SendPassword(user).GetAwaiter().GetResult();
                             File.WriteAllText($"{user.login}.json", JsonSerializer.Serialize<User>(user));
                         }
-                    }
-                }
-            }
         }
         static string ComputeSha256Hash(string rawData)
         {
@@ -44,9 +43,8 @@ namespace RegisterForm
                 byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
-                {
                     builder.Append(bytes[i].ToString("x2"));
-                }
+                
                 return builder.ToString();
             }
         }
@@ -73,9 +71,8 @@ namespace RegisterForm
         bool IsValidEmail(string mail)
         {
             if (mail.Trim().EndsWith("."))
-            {
                 return false;
-            }
+            
             try
             {
                 var addr = new System.Net.Mail.MailAddress(mail);
